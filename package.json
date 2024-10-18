@@ -31,6 +31,14 @@
   "contributes": {
     "commands": [
       {
+        "command": "extension.extractMod",
+        "title": "Extract Mod"
+      },
+      {
+        "command": "extension.beautifyJBeam",
+        "title": "Beautify JBeam File"
+      },
+      {
         "command": "jbeam-editor.syncWithSim",
         "title": "Sync with simulation",
         "icon": "$(sync)"
@@ -101,15 +109,29 @@
       },
       {
         "id": "beamng-log",
-        "aliases": ["BeamNG Log", "beamng-log"],
-        "extensions": ["beamng*.log", "beamng.1.log", "beamng.2.log", "beamng.3.log"],
-        "filenamePatterns": ["beamng*.log"],
+        "aliases": [
+          "BeamNG Log",
+          "beamng-log"
+        ],
+        "extensions": [
+          "beamng*.log",
+          "beamng.1.log",
+          "beamng.2.log",
+          "beamng.3.log"
+        ],
+        "filenamePatterns": [
+          "beamng*.log"
+        ],
         "configuration": "./syntaxes/beamng-log-language-configuration.json"
       },
       {
         "id": "partconfig",
-        "aliases": ["BeamNG Partconfig"],
-        "extensions": [ ".pc" ],
+        "aliases": [
+          "BeamNG Partconfig"
+        ],
+        "extensions": [
+          ".pc"
+        ],
         "configuration": "./syntaxes/jbeam-language-configuration.json",
         "icon": {
           "light": "./icons/partconfig.png",
@@ -233,5 +255,8 @@
   },
   "files": [
     "src/webview/*"
-  ]
+  ],
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  }
 }

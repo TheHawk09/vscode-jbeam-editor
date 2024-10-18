@@ -22,6 +22,7 @@
   Notes: This module is the entry point for the BeamNG.jbeam Editor extension and manages its activation and deactivation, as well as registration of commands and event handlers.
 */
 const vscode = require('vscode');
+const { beautifyJBeamFile } = require('./beautifier');
 const threeDPreview = require('./threeDPreview');
 const jbeamSyntaxChecker = require('./jbeam/syntaxChecker');
 const jbeamSymbolProviderExt = require('./jbeam/symbolProvider');
@@ -30,10 +31,27 @@ const logProcessor = require('./logparser/logProcessor');
 const simConnection = require('./simConnection');
 const archivar = require('./archivar');
 const partconfigValidationCompletion = require('./partconfig/validationCompletion');
+const loadMod = require('./loadMod');
 
 // so apparently, on changing the workspace kills the extension
 
 function activate(context) {
+  loadMod.activate(context);
+
+  let disposable = vscode.commands.registerCommand('extension.beautifyJBeam', function () {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+        const filePath = editor.document.uri.fsPath;
+
+        // Call the beautifier on the current file
+        beautifyJBeamFile(filePath, () => {
+            vscode.window.showInformationMessage('JBeam file has been beautified!');
+        });
+    }
+  });
+
+  context.subscriptions.push(disposable);
+  
   context.subscriptions.push(vscode.commands.registerCommand('jbeam-editor.syncWithSim', function () {
     simConnection.sync()
   }))

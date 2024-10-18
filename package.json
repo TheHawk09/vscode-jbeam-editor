@@ -31,10 +31,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.extractMod",
-        "title": "Extract Mod"
-      },
-      {
         "command": "extension.beautifyJBeam",
         "title": "Beautify JBeam File"
       },

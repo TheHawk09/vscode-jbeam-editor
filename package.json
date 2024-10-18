@@ -1,0 +1,262 @@
+{
+  "name": "jbeam-editor",
+  "displayName": "JBeam Editor",
+  "description": "Editing utilities for the physics file format of BeamNG",
+  "icon": "icons/beamng-icon.png",
+  "publisher": "BeamNG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BeamNG/vscode-jbeam-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BeamNG/vscode-jbeam-editor/issues"
+  },
+  "homepage": "https://github.com/BeamNG/vscode-jbeam-editor#readme",
+  "license": "MIT",
+  "keywords": [
+    "jbeam",
+    "editor",
+    "3D",
+    "beamng"
+  ],
+  "version": "0.3.92",
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.extractMod",
+        "title": "Extract Mod"
+      },
+      {
+        "command": "extension.beautifyJBeam",
+        "title": "Beautify JBeam File"
+      },
+      {
+        "command": "jbeam-editor.syncWithSim",
+        "title": "Sync with simulation",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "jbeam-editor.show3DScene",
+        "title": "Show 3D Scene",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "jbeam-editor.gotoLine",
+        "title": "Go to a line"
+      },
+      {
+        "command": "jbeam-editor.openSettings",
+        "title": "Open settings",
+        "icon": "$(settings-gear)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == jbeam",
+          "command": "jbeam-editor.show3DScene",
+          "group": "navigation",
+          "icon": "$(open-preview)"
+        },
+        {
+          "when": "resourceLangId == jbeam || resourceLangId == beamng-log",
+          "command": "jbeam-editor.openSettings",
+          "group": "1_run",
+          "icon": "$(settings-gear)"
+        }
+      ]
+    },
+    "grammars": [
+      {
+        "language": "jbeam",
+        "scopeName": "source.jbeam",
+        "path": "./syntaxes/jbeam.tmLanguage.json"
+      },
+      {
+        "language": "beamng-log",
+        "scopeName": "source.beamng-log",
+        "path": "./syntaxes/beamng-log.tmLanguage.json"
+      },
+      {
+        "language": "partconfig",
+        "scopeName": "source.jbeam",
+        "path": "./syntaxes/jbeam.tmLanguage.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "jbeam",
+        "aliases": [
+          "JBeam",
+          "jbeam"
+        ],
+        "extensions": [
+          ".jbeam"
+        ],
+        "configuration": "./syntaxes/jbeam-language-configuration.json",
+        "icon": {
+          "light": "./icons/jbeam.png",
+          "dark": "./icons/jbeam-dark.png"
+        }
+      },
+      {
+        "id": "beamng-log",
+        "aliases": [
+          "BeamNG Log",
+          "beamng-log"
+        ],
+        "extensions": [
+          "beamng*.log",
+          "beamng.1.log",
+          "beamng.2.log",
+          "beamng.3.log"
+        ],
+        "filenamePatterns": [
+          "beamng*.log"
+        ],
+        "configuration": "./syntaxes/beamng-log-language-configuration.json"
+      },
+      {
+        "id": "partconfig",
+        "aliases": [
+          "BeamNG Partconfig"
+        ],
+        "extensions": [
+          ".pc"
+        ],
+        "configuration": "./syntaxes/jbeam-language-configuration.json",
+        "icon": {
+          "light": "./icons/partconfig.png",
+          "dark": "./icons/partconfig-dark.png"
+        }
+      }
+    ],
+    "documentSymbolProvider": true,
+    "configuration": [
+      {
+        "title": "BeamNG Log parser",
+        "properties": {
+          "beamng-log.parseInfo": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enables parsing info lines",
+            "order": 5
+          }
+        }
+      },
+      {
+        "title": "BeamNG JBeam Editor",
+        "properties": {
+          "jbeam-editor.hover.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable or disable the text hover",
+            "order": 5
+          },
+          "jbeam-editor.hover.highlightBreadCrumb": {
+            "type": "boolean",
+            "default": false,
+            "description": "Highlight on breadcrumb click in hover",
+            "order": 5
+          },
+          "jbeam-editor.hover.showDocs": {
+            "type": "boolean",
+            "default": true,
+            "description": "Show documentation in hover info",
+            "order": 5
+          },
+          "jbeam-editor.hover.showData": {
+            "type": "boolean",
+            "default": true,
+            "description": "Show the parsed data in the hover",
+            "order": 5
+          },
+          "jbeam-editor.hover.dev.showDocHints": {
+            "type": "boolean",
+            "default": false,
+            "description": "Developer setting: show the keys it looks for in the docs",
+            "order": 90
+          },
+          "jbeam-editor.hover.dev.showFullDevData": {
+            "type": "boolean",
+            "default": false,
+            "description": "Developer setting: Show all data hover, do not clean up",
+            "order": 91
+          },
+          "jbeam-editor.sceneView.fpsLimit": {
+            "type": "number",
+            "default": 60,
+            "description": "The FPS Limit for the 3D view. Set to 0 for now limiter",
+            "order": 5
+          },
+          "jbeam-editor.sceneView.meshes.loadCommonFolder": {
+            "type": "boolean",
+            "default": false,
+            "description": "Load common vehicle folder meshes. Warning: slow, as there is a lot of data!",
+            "order": 5
+          },
+          "jbeam-editor.sceneView.meshes.opacity": {
+            "type": "number",
+            "default": 50,
+            "minimum": 0,
+            "maximum ": 100,
+            "description": "Opacity of the 3D meshes in percent",
+            "order": 5
+          }
+        }
+      }
+    ]
+  },
+  "webview": {
+    "scripts": [
+      "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+    ]
+  },
+  "viewsContainers": {
+    "activitybar": [
+      {
+        "id": "3d-scene",
+        "title": "3D Scene",
+        "icon": "media/icon/path.svg"
+      }
+    ]
+  },
+  "views": {
+    "2d-scenes": [
+      {
+        "id": "sceneView",
+        "name": "Scene View",
+        "when": "view == sceneView"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.3",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.83.2",
+    "@vscode/test-electron": "^2.3.6",
+    "eslint": "^8.52.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "typescript": "^5.2.2"
+  },
+  "files": [
+    "src/webview/*"
+  ],
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Scene</title>
+</head>
+<body>
+<canvas id="canvas3D" tabindex="1"></canvas>
+<script src="libs/three.min.js"></script>
+<script src="utils.js"></script>
+<script src="libs/OrbitControls.js"></script>
+<script src="libs/tween.js"></script>
+<script src="gizmo.js"></script>
+<script type="module">
+import * as ui from './ui.js';
+import * as main from './main.js';
+import * as visualizersMain from './visualizers/main.js';
+import * as visualizersNode from './visualizers/node.js';
+import * as visualizersBeam from './visualizers/beam.js';
+import * as visualizersTriangle from './visualizers/triangle.js';
+import * as visualizersTorsionbar from '<!-- LocalResource:visualizers/torsionbar.js -->';
+import * as visualizersMesh from './visualizers/mesh.js';
+import * as visualizersGroundplane from './visualizers/groundplane.js';
+import * as colladaLoader from './libs/ColladaLoader.js';
+import * as tweakPane from './libs/tweakpane.min.js';
+
+
+
+
+const isVSCode = typeof acquireVsCodeApi === 'function';
+const vscode = isVSCode ? acquireVsCodeApi() : null
+ctx.ui = ui
+ctx.vscode = vscode
+ctx.tweakPane = tweakPane
+ctx.colladaLoader = colladaLoader
+
+ctx.visualizersMain = visualizersMain
+ctx.visualizersNode = visualizersNode
+ctx.visualizersBeam = visualizersBeam
+ctx.visualizersTriangle = visualizersTriangle
+ctx.visualizersTorsionbar = visualizersTorsionbar
+ctx.visualizersMesh = visualizersMesh
+ctx.visualizersGroundplane = visualizersGroundplane
+
+main.init()
+</script>
+</body>
+<style>
+* {
+  user-select: none;
+}
+#canvas3D {
+  z-index: 1;
+}
+#canvasUI {
+  position: absolute;
+  z-index: 2;
+  background-color: transparent;
+}
+body, html, canvas {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: block; /* added this to ensure it's block level */
+}
+</style>
+</html>
